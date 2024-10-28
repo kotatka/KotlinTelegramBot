@@ -1,0 +1,5 @@
+black черный
+white белый
+green зеленый
+brown коричневый
+orange оранжевый
