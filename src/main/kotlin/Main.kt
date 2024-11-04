@@ -38,7 +38,26 @@ fun main() {
 
         val userChoice = readln().toInt()
         when (userChoice) {
-            1 -> println("Вы выбрали пункт - Учить слова")
+            1 -> {
+                val notLearnedList = dictionary.filter { it.correctAnswersCount < 3 }
+                if (notLearnedList.isEmpty() == true) {
+                    println("Все слова в словаре выучены.")
+                    continue
+                } else {
+                    val questionWords = notLearnedList.take(4).shuffled()
+                    val correctAnswer = questionWords.random()
+                    println(
+                        """${correctAnswer.original}:
+                        |1 - ${questionWords[0].translate}
+                        |2 - ${questionWords[1].translate}
+                        |3 - ${questionWords[2].translate}
+                        |4 - ${questionWords[3].translate}
+                    """.trimMargin()
+                    )
+                    readln().toInt()
+                }
+            }
+
             2 -> {
                 val totalCount = dictionary.size
                 val learnedCount = dictionary.filter { it.correctAnswersCount >= LEARNED_COUNT }
