@@ -44,14 +44,13 @@ fun main() {
                     println("Все слова в словаре выучены.")
                     continue
                 } else {
-                    val questionWords = notLearnedList.take(4).shuffled()
+                    val questionWords = notLearnedList.shuffled().take(4)
                     val correctAnswer = questionWords.random()
+                    val answerOptions = questionWords.mapIndexed { index, word -> "${index + 1} - ${word.translate}\n" }
+                        .joinToString("")
                     println(
-                        """${correctAnswer.original}:
-                        |1 - ${questionWords[0].translate}
-                        |2 - ${questionWords[1].translate}
-                        |3 - ${questionWords[2].translate}
-                        |4 - ${questionWords[3].translate}
+                        """${correctAnswer.original}
+                        |$answerOptions
                     """.trimMargin()
                     )
                     readln().toInt()
