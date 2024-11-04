@@ -5,7 +5,7 @@ const val LEARNED_COUNT = 3
 data class Word(
     val original: String,
     val translate: String,
-    var correctAnswersCount: Int?,
+    var correctAnswersCount: Int,
 )
 
 fun loadDictionary(file: File): MutableList<Word> {
@@ -16,7 +16,7 @@ fun loadDictionary(file: File): MutableList<Word> {
         val newWord = Word(
             original = wordsLine[0],
             translate = wordsLine[1],
-            correctAnswersCount = wordsLine[2].toIntOrNull() ?: 0
+            correctAnswersCount = wordsLine[2]?.toIntOrNull() ?: 0
         )
         dictionary.add(newWord)
     }
@@ -41,7 +41,7 @@ fun main() {
             1 -> println("Вы выбрали пункт - Учить слова")
             2 -> {
                 val totalCount = dictionary.size
-                val learnedCount = dictionary.filter { it.correctAnswersCount!! >= LEARNED_COUNT }
+                val learnedCount = dictionary.filter { it.correctAnswersCount >= LEARNED_COUNT }
                 val totalLearnedCount = learnedCount.size
                 val percent = (totalLearnedCount.toDouble() / totalCount) * 100
                 println("Выучено $totalLearnedCount из $totalCount | $percent%")
