@@ -47,12 +47,8 @@ fun main() {
                     val questionWords = notLearnedList.shuffled().take(4)
                     val correctAnswer = questionWords.random()
                     val answerOptions = questionWords.mapIndexed { index, word -> "${index + 1} - ${word.translate}\n" }
-                        .joinToString("")
-                    println(
-                        """${correctAnswer.original}
-                        |$answerOptions
-                    """.trimMargin()
-                    )
+                        .joinToString("", "${correctAnswer.original}","\n")
+                    println(answerOptions)
                     readln().toInt()
                 }
             }
