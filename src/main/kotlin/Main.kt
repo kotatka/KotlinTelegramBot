@@ -1,4 +1,6 @@
 import java.io.File
+import java.io.FileWriter
+import java.util.Dictionary
 
 const val LEARNED_COUNT = 3
 
@@ -22,6 +24,17 @@ fun loadDictionary(file: File): MutableList<Word> {
     }
     return dictionary
 }
+
+fun saveDictionary(file: File, dictionary: MutableList<Word>): File {
+    file.writeText("")
+    var x = 0
+    for (i in dictionary.iterator()) {
+        file.appendText("${dictionary[x].original}|${dictionary[x].translate}|${dictionary[x].correctAnswersCount}\n")
+        x++
+    }
+    return file
+}
+
 
 fun main() {
     val wordsFile: File = File("words.txt")
@@ -47,9 +60,15 @@ fun main() {
                     val questionWords = notLearnedList.shuffled().take(4)
                     val correctAnswer = questionWords.random()
                     val answerOptions = questionWords.mapIndexed { index, word -> "${index + 1} - ${word.translate}\n" }
-                        .joinToString("", "${correctAnswer.original}:\n", "\n")
+                        .joinToString("", "${correctAnswer.original}:\n", "-----------\n0 - Меню")
                     println(answerOptions)
-                    readln().toInt()
+                    val userAnswerInput = readln().toInt()
+                    val correctAnswerId = questionWords.indexOf(correctAnswer) + 1
+                    if (userAnswerInput == correctAnswerId) {
+                        println("Правильно!")
+                        correctAnswer.correctAnswersCount++
+                        saveDictionary(wordsFile, dictionary)
+                    } else println("Неправильно! ${correctAnswer.original} - это ${correctAnswer.translate}")
                 }
             }
 
