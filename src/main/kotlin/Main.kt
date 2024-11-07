@@ -1,6 +1,4 @@
 import java.io.File
-import java.io.FileWriter
-import java.util.Dictionary
 
 const val LEARNED_COUNT = 3
 
