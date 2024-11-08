@@ -25,7 +25,6 @@ fun loadDictionary(file: File): MutableList<Word> {
 
 fun saveDictionary(file: File, dictionary: MutableList<Word>) {
     file.writeText("")
-    var x = 0
     for (word in dictionary) {
         file.appendText("${word.original}|${word.translate}|${word.correctAnswersCount}\n")
     }
